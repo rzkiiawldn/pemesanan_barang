@@ -30,8 +30,7 @@
     <center>
         <table width="500">
             <tr>
-                <td width="60"><img src="<?= $profil['logo_website']; ?>" width="70" height="70"></td>
-                <td width="400">
+                <td width="100$%">
                 <center>
                     <font size="7" class="besar"><b>Nama Company</b></font><br>
                     <font size="3"><i>Data User</i></font>

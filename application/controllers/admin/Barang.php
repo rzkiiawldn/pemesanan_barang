@@ -325,9 +325,26 @@ class Barang extends CI_Controller
         redirect('admin/barang/data_pemesanan');
     }
 
-    public function cetak_data()
+    // public function cetak_data()
+    // {
+    //     $data['pemesanan'] = $this->db->query("SELECT * FROM tb_pemesanan JOIN tb_user ON tb_pemesanan.id_user = tb_user.id_user")->result_array();
+    //     $this->load->view('admin/barang/cetak_data', $data);
+    // }
+
+        public function cetak_data()
     {
-        $data['pemesanan'] = $this->db->query("SELECT * FROM tb_pemesanan JOIN tb_user ON tb_pemesanan.id_user = tb_user.id_user")->result_array();
+        $this->load->library('dompdf_gen');
+        $data['judul']      = "Cetak Data";
+        $data['user']       = $this->db->get_where('tb_user', ['id_role !=' => 1])->result_array();
+        $data['pemesanan']  = $this->db->query("SELECT * FROM tb_pemesanan JOIN tb_user ON tb_pemesanan.id_user = tb_user.id_user")->result_array();
         $this->load->view('admin/barang/cetak_data', $data);
+        // menentukan ukuran kertas
+        $paper_size     = 'A4';
+        $orientation    = 'landscape';
+        $html           = $this->output->get_output();
+        $this->dompdf->set_paper($paper_size, $orientation);
+        $this->dompdf->load_html($html);
+        $this->dompdf->render();
+        $this->dompdf->stream('laporan_data_pemesanan.pdf', ['Attachment' => 0]);
     }
 }

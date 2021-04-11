@@ -60,8 +60,8 @@ class User extends CI_Controller
     public function cetak_data()
     {
         $this->load->library('dompdf_gen');
+        $data['judul']  = "Cetak Data";
         $data['user']   = $this->db->get_where('tb_user', ['id_role !=' => 1])->result_array();
-        $data['profil'] = $this->db->get('tb_profil')->row_array();
         $this->load->view('admin/user/cetak_data', $data);
         // menentukan ukuran kertas
         $paper_size     = 'A4';
