@@ -141,4 +141,20 @@ class Barang extends CI_Controller
         $this->load->view('user/detail_pemesanan');
         $this->load->view('templates/user_footer');
     }
+
+    public function  invoice($id_pemesanan)
+    {
+        $this->load->library('dompdf_gen');
+        $data['judul']      = "Cetak Data";
+        $data['pemesanan']  = $this->db->query("SELECT * FROM tb_pemesanan JOIN tb_user ON tb_pemesanan.id_user = tb_user.id_user WHERE id_pemesanan = $id_pemesanan")->row_array();
+        $this->load->view('user/invoice', $data);
+        // menentukan ukuran kertas
+        $paper_size     = 'A4';
+        $orientation    = 'landscape';
+        $html           = $this->output->get_output();
+        $this->dompdf->set_paper($paper_size, $orientation);
+        $this->dompdf->load_html($html);
+        $this->dompdf->render();
+        $this->dompdf->stream('invoice.pdf', ['Attachment' => 0]);
+    }
 }

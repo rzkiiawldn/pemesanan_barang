@@ -22,14 +22,11 @@
             <div class="row">
 
                 <div class="col-lg-12">
-                    <?php if ($pemesanan['status_pemesanan'] == 'Selesai') { ?>
                         <div class="row">
                             <div class="col mb-2">
-                                <a href="" class="btn btn-primary btn-sm float-right">Cetak invoice</a>
+                                <a href="<?= base_url('user/barang/invoice/'. $pemesanan['id_pemesanan']); ?>" target="_blank" class="btn btn-primary btn-sm float-right">Cetak invoice</a>
                             </div>
                         </div>
-                    <?php } else {
-                    } ?>
                     <div class="card">
                         <div class="card-header">
                             <?= $judul; ?>

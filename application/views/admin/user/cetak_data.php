@@ -18,7 +18,6 @@
         table tr td {
             font-size: 14px;
         }
-
         .besar{
                 text-transform: uppercase;
             }
