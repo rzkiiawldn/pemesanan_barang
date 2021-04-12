@@ -5,7 +5,7 @@
         <!-- Slide 1 -->
         <div class="carousel-item active">
             <div class="carousel-container">
-                <h2 class="animate__animated animate__fadeInDown">Selamat Datang <?= $user['nama']; ?></h2>
+                <h2 class="animate__animated animate__fadeInDown">Selamat Datang</h2>
                 <p class="animate__animated fanimate__adeInUp">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates dicta placeat repellat..</p>
             </div>
         </div>

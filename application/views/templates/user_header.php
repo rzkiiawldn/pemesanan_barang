@@ -58,20 +58,18 @@
             ?>
             <nav class="nav-menu d-none d-lg-block">
                 <ul>
-                    <?php foreach ($dataMenu as $menu) { ?>
-                        <!-- <div class="sidebar-heading">
-                    <?= $menu['menu']; ?>
-                </div> -->
-                        <?php
-                        $menuId         = $menu['id_menu'];
-                        $querySubMenu   = "SELECT * FROM `tb_user_sub_menu` JOIN `tb_user_menu` ON `tb_user_sub_menu`.`id_menu` = `tb_user_menu`.`id_menu` WHERE `tb_user_sub_menu`.`id_menu` = $menuId AND `tb_user_sub_menu`.`is_active` = 1 ORDER BY urutan ASC";
-                        $dataSubMenu    = $this->db->query($querySubMenu)->result_array();
-                        ?>
-                        <?php foreach ($dataSubMenu as $submenu) { ?>
-                            <li class="<?= $judul == $submenu['submenu'] ? "active" : null; ?>"><a href="<?= base_url($submenu['url']) ?>"><?= $submenu['submenu']; ?></a></li>
-                        <?php } ?>
-                    <?php } ?>
                     <?php if ($this->session->userdata('email')) { ?>
+                        <?php foreach ($dataMenu as $menu) { ?>
+                            <?= $menu['menu']; ?>
+                            <?php
+                            $menuId         = $menu['id_menu'];
+                            $querySubMenu   = "SELECT * FROM `tb_user_sub_menu` JOIN `tb_user_menu` ON `tb_user_sub_menu`.`id_menu` = `tb_user_menu`.`id_menu` WHERE `tb_user_sub_menu`.`id_menu` = $menuId AND `tb_user_sub_menu`.`is_active` = 1 ORDER BY urutan ASC";
+                            $dataSubMenu    = $this->db->query($querySubMenu)->result_array();
+                            ?>
+                            <?php foreach ($dataSubMenu as $submenu) { ?>
+                                <li class="<?= $judul == $submenu['submenu'] ? "active" : null; ?>"><a href="<?= base_url($submenu['url']) ?>"><?= $submenu['submenu']; ?></a></li>
+                            <?php } ?>
+                        <?php } ?>
                         <!-- <li class="<?= $this->uri->segment('2') == 'dashboard' ? 'active' : null; ?>"><a href="<?= base_url() ?>"><i class="bx bxs-basket"></i><span style="font-size: 12px;"> 0</span></a></li> -->
                         <li class="drop-down text-capitalize"><a href=""><?= $user['nama']; ?></a>
                             <ul>
@@ -80,6 +78,8 @@
                             </ul>
                         </li>
                     <?php } else { ?>
+                        <li class=""><a href="<?= base_url('user/dashboard') ?>">Home</a></li>
+                        <li class=""><a href="<?= base_url('user/about') ?>">About Us</a></li>
                         <li><a href="<?= base_url('auth/') ?>">Login</a></li>
                     <?php } ?>
 
