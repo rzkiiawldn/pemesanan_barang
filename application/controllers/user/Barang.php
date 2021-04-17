@@ -157,4 +157,11 @@ class Barang extends CI_Controller
         $this->dompdf->render();
         $this->dompdf->stream('invoice.pdf', ['Attachment' => 0]);
     }
+
+    public function get_id_variasi()
+    {
+        $id = $this->input->post('id');
+        $data = $this->barang_model->getVariasiBarangById($id);
+        echo json_encode($data);
+    }
 }

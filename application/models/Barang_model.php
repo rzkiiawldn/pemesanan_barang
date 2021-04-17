@@ -17,6 +17,10 @@ class Barang_model extends CI_Model
             return $this->db->get_where('tb_variasi', ['id_brg' => $id_brg]);
         }
     }
+    public function getVariasiBarangById($id)
+    {
+        return $this->db->get_where('tb_variasi', ['id_variasi' => $id])->result();
+    }
 
     public function getPemesanan($id_pemesanan = null)
     {

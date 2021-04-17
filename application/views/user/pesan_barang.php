@@ -107,7 +107,7 @@
                                         <label for=""><b>Pilih Barang</b></label>
                                         <div class="radio-inline">
                                             <?php foreach ($variasi->result_array() as $data) { ?>
-                                                <input type="radio" name="nama_barang" value="<?= $data['harga_variasi'] ?>" class="ml-3"> <?= $data['nama_variasi'] ?>
+                                                <input type="radio" id="nama_barang" name="brg" value="<?= $data['id_variasi'] ?>" class="ml-3"> <?= $data['nama_variasi'] ?>
                                             <?php } ?>
                                         </div>
                                     </div>
@@ -144,6 +144,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
+                            <input type="hidden" class="form-control" readonly id="nama_variasi" name="nama_barang">
                             <div class="col">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -167,10 +168,33 @@
 <script>
     $(document).ready(function() {
         $('#myForm input').on('change', function() {
-            var harga_barang = $("[type='radio']:checked").val();
-            $('#harga_barang').val($("[type='radio']:checked").val());
+            var id = $("[type='radio']:checked").val();
+            // $('#harga_barang').val($("[type='radio']:checked").val());
+            $.ajax({
+                url: "<?php echo base_url(); ?>user/barang/get_id_variasi",
+                method: "POST",
+                data: {
+                    id: id
+                },
+                async: false,
+                dataType: 'json',
+                success: function(data) {
+
+                    //alert(data);
+                    // var html = '';
+                    // var i;
+                    // html += '<option>-- Pilih --</option>';
+                    for (i = 0; i < data.length; i++) {
+                        $('#harga_barang').val(data[i].harga_variasi);
+                        $('#nama_variasi').val(data[i].nama_variasi);
+                        Panjang_variasi();
+                    }
+                    // $('#cmbSubGroup').html(html);
+                }
+            });
         });
     });
+
 
     function Panjang() {
         var p = document.getElementById("panjang").value;

@@ -34,6 +34,9 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12"><a href="<?= base_url('admin/barang/tambah_variasi/' . $barang['id_brg']) ?>" class="btn btn-primary btn-sm mt-3 mb-3 float-right">Tambah Variasi</a></div>
+    </div>
     <?php if ($variasi->num_rows() < 1) {
     } else { ?>
         <div class="row">
