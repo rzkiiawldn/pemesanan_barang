@@ -14,7 +14,7 @@ class Barang_model extends CI_Model
     public function getVariasiBarang($id_brg = null)
     {
         if ($id_brg != null) {
-            return $this->db->get_where('tb_variasi', ['id_brg' => $id_brg]);
+            return $this->db->query("SELECT * FROM tb_variasi WHERE id_brg = $id_brg LIMIT 1, 200");
         }
     }
     public function getVariasiBarangById($id)
@@ -92,12 +92,25 @@ class Barang_model extends CI_Model
     public function pesan()
     {
         date_default_timezone_set("Asia/Jakarta");
+        $desain_barang = $_FILES['desain_barang'];
+        if ($desain_barang = '') {
+        } else {
+            $config['allowed_types']    = 'jpg|PNG|png|jpeg|JPG|JPEG';
+            $config['max_size']         = '2048';
+            $config['upload_path']      = './assets/user/img/desain/';
+            $this->load->library('upload', $config);
+            if ($this->upload->do_upload('desain_barang')) {
+                $desain_barang   = $this->upload->data('file_name');
+            } else {
+            }
+        }
         $data = [
             'id_user'           => htmlspecialchars($this->input->post('id_user')),
             'alamat_pemasangan'  => $this->input->post('alamat_pemasangan'),
             'tanggal_pemesanan' => date('Y-m-d H:m:s'),
             'nama_barang'       => htmlspecialchars($this->input->post('nama_barang')),
             'harga_barang'      => htmlspecialchars($this->input->post('harga_barang')),
+            'desain_barang'     => $desain_barang,
             'panjang'           => htmlspecialchars($this->input->post('panjang')),
             'lebar'             => htmlspecialchars($this->input->post('lebar')),
             'total_harga'       => htmlspecialchars($this->input->post('total_harga')),

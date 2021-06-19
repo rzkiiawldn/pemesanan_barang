@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Apr 2021 pada 06.08
+-- Waktu pembuatan: 19 Jun 2021 pada 09.04
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.3.15
 
@@ -41,7 +41,8 @@ CREATE TABLE `tb_barang` (
 --
 
 INSERT INTO `tb_barang` (`id_brg`, `nama_barang`, `harga_barang`, `keterangan`, `foto_barang`) VALUES
-(20, 'barang A', 1200, 'berkualitas', 'apple-touch-icon.png');
+(25, 'Neon Box', 1200, 'Murah', 'rsz_slider33.jpg'),
+(26, 'Billboard', 1100, 'billboard', 'rsz_slider3_(1).jpg');
 
 -- --------------------------------------------------------
 
@@ -57,18 +58,12 @@ CREATE TABLE `tb_pemesanan` (
   `nama_barang` varchar(225) NOT NULL,
   `harga_barang` int(11) NOT NULL,
   `panjang` int(11) NOT NULL,
+  `desain_barang` varchar(225) NOT NULL,
   `lebar` int(11) NOT NULL,
   `total_harga` int(11) NOT NULL,
   `status_pemesanan` varchar(100) NOT NULL,
   `bukti_pembayaran` varchar(225) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tb_pemesanan`
---
-
-INSERT INTO `tb_pemesanan` (`id_pemesanan`, `id_user`, `alamat_pemasangan`, `tanggal_pemesanan`, `nama_barang`, `harga_barang`, `panjang`, `lebar`, `total_harga`, `status_pemesanan`, `bukti_pembayaran`) VALUES
-(20, 7, 'cikokol', '2021-04-11 03:04:55', 'barang A', 1200, 100, 100, 120000, 'Selesai', 'apple-touch-icon.png');
 
 -- --------------------------------------------------------
 
@@ -132,8 +127,8 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`id_user`, `nama`, `email`, `telepon`, `alamat`, `password`, `foto`, `id_role`, `date_created`) VALUES
-(1, 'admin ganteng', 'admin@gmail.com', '0812119129', 'Kp kelapa', '$2y$10$HUf.okQfhUTQAD9JyVDmhuFZAOM57um5Qy7p5kRm73H8qlBQXZYli', 'produk_1584373086.jpg', 1, 1617180304),
-(7, 'Atok Dalang', 'dalang@gmail.com', '08121212', 'Kp Rambutan Runtuh', '$2y$10$LhKaFtexJwjTpWeCKSOrs.sIlVbnTT4u9IwVO0koSNgKfH9s/oqIW', 'default.jpg', 2, 1618065031);
+(1, 'admin', 'admin@gmail.com', '0812119129', 'Kp kelapa', '$2y$10$HUf.okQfhUTQAD9JyVDmhuFZAOM57um5Qy7p5kRm73H8qlBQXZYli', 'produk_1584373086.jpg', 1, 1617180304),
+(7, 'User', 'user@gmail.com', '08121212', 'Kp Rambutan Runtuh', '$2y$10$LhKaFtexJwjTpWeCKSOrs.sIlVbnTT4u9IwVO0koSNgKfH9s/oqIW', 'default.jpg', 2, 1618065031);
 
 -- --------------------------------------------------------
 
@@ -153,66 +148,7 @@ CREATE TABLE `tb_user_access_menu` (
 
 INSERT INTO `tb_user_access_menu` (`id_access`, `id_role`, `id_menu`) VALUES
 (1, 1, 1),
-(2, 1, 2),
-(3, 2, 3),
-(4, 1, 4),
-(8, 1, 9);
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_user_menu`
---
-
-CREATE TABLE `tb_user_menu` (
-  `id_menu` int(11) NOT NULL,
-  `menu` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tb_user_menu`
---
-
-INSERT INTO `tb_user_menu` (`id_menu`, `menu`) VALUES
-(1, 'Admin'),
-(2, 'Barang'),
-(3, 'User'),
-(4, 'Menu');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_user_sub_menu`
---
-
-CREATE TABLE `tb_user_sub_menu` (
-  `id_sub` int(11) NOT NULL,
-  `id_menu` int(11) NOT NULL,
-  `submenu` varchar(150) NOT NULL,
-  `url` varchar(200) NOT NULL,
-  `icon` varchar(200) NOT NULL,
-  `urutan` int(11) NOT NULL,
-  `is_active` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tb_user_sub_menu`
---
-
-INSERT INTO `tb_user_sub_menu` (`id_sub`, `id_menu`, `submenu`, `url`, `icon`, `urutan`, `is_active`) VALUES
-(1, 1, 'Dashboard', 'admin/dashboard/index', 'fas fa-fw fa-tachometer-alt', 1, 1),
-(2, 3, 'Home', 'user/dashboard', 'fas fa-fw fa-home', 1, 1),
-(4, 3, 'About Us', 'user/about/index', 'fas fa-fw fa-archway', 2, 1),
-(5, 2, 'Data Barang', 'admin/barang/index', 'fas fa-fw fa-shopping-cart', 1, 1),
-(6, 3, 'Data Barang', 'user/barang/data_barang', 'fas fa-fw fa-shopping-cart', 3, 1),
-(7, 3, 'Riwayat Pemesanan', 'user/barang/data_pemesanan', 'fas fa-fw fa-file-invoice', 4, 1),
-(8, 2, 'Data Pemesanan', 'admin/barang/data_pemesanan', 'fas fa-fw fa-file-invoice', 2, 1),
-(10, 1, 'Data User', 'admin/user/index', 'fas fa-fw fa-users', 2, 1),
-(11, 1, 'About Us', 'admin/about/index', 'fas fa-fw fa-archway', 3, 1),
-(12, 2, 'Transaksi Selesai', 'admin/barang/transaksi_selesai', 'fas fa-fw fa-list-alt', 3, 1),
-(13, 4, 'Menu Management', 'admin/menu/index', 'fas fa-fw fa-bars', 1, 1),
-(14, 4, 'Submenu Management', 'admin/menu/submenu', 'fas fa-fw fa-caret-square-down', 2, 1),
-(15, 4, 'Menu Access', 'admin/menu/menu_akses', 'fas fa-fw fa-cog', 3, 1);
+(2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -227,6 +163,15 @@ CREATE TABLE `tb_variasi` (
   `harga_variasi` int(11) DEFAULT NULL,
   `foto_variasi` varchar(225) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tb_variasi`
+--
+
+INSERT INTO `tb_variasi` (`id_variasi`, `id_brg`, `nama_variasi`, `harga_variasi`, `foto_variasi`) VALUES
+(18, 25, 'Neon Box', 1200, 'rsz_slider33.jpg'),
+(19, 25, 'Neon Box 2 Sisi', 1300, 'rsz_slider21.jpg'),
+(20, 26, 'Billboard', 1100, 'rsz_slider3_(1).jpg');
 
 --
 -- Indexes for dumped tables
@@ -269,18 +214,6 @@ ALTER TABLE `tb_user_access_menu`
   ADD PRIMARY KEY (`id_access`);
 
 --
--- Indeks untuk tabel `tb_user_menu`
---
-ALTER TABLE `tb_user_menu`
-  ADD PRIMARY KEY (`id_menu`);
-
---
--- Indeks untuk tabel `tb_user_sub_menu`
---
-ALTER TABLE `tb_user_sub_menu`
-  ADD PRIMARY KEY (`id_sub`);
-
---
 -- Indeks untuk tabel `tb_variasi`
 --
 ALTER TABLE `tb_variasi`
@@ -295,13 +228,13 @@ ALTER TABLE `tb_variasi`
 -- AUTO_INCREMENT untuk tabel `tb_barang`
 --
 ALTER TABLE `tb_barang`
-  MODIFY `id_brg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_brg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_pemesanan`
 --
 ALTER TABLE `tb_pemesanan`
-  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_profil`
@@ -328,22 +261,10 @@ ALTER TABLE `tb_user_access_menu`
   MODIFY `id_access` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_user_menu`
---
-ALTER TABLE `tb_user_menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT untuk tabel `tb_user_sub_menu`
---
-ALTER TABLE `tb_user_sub_menu`
-  MODIFY `id_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
 -- AUTO_INCREMENT untuk tabel `tb_variasi`
 --
 ALTER TABLE `tb_variasi`
-  MODIFY `id_variasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_variasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

@@ -5,8 +5,8 @@
         <!-- Slide 1 -->
         <div class="carousel-item active">
             <div class="carousel-container">
-                <h2 class="animate__animated animate__fadeInDown">Selamat Datang</h2>
-                <p class="animate__animated fanimate__adeInUp">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates dicta placeat repellat..</p>
+                <h2 class="animate__animated animate__fadeInDown">Welcome to <br> Bintang Inovasi Gemilang <br> solution your Advertising indoor and outdoor</h2>
+                <!-- <p class="animate__animated fanimate__adeInUp">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates dicta placeat repellat..</p> -->
             </div>
         </div>
         <!-- 

@@ -22,7 +22,7 @@
             </div>
             <div class="col-lg-8 mt-5 mt-lg-0" data-aos="fade-left">
 
-                <form action="<?= base_url('user/barang/proses') ?>" method="post" id="myForm">
+                <form action="<?= base_url('user/barang/proses') ?>" method="post" id="myForm" enctype="multipart/form-data">
                     <div class="form-row">
                         <input type="hidden" name="id_user" value="<?= $user['id_user'] ?>">
                         <input type="hidden" name="id_brg" value="<?= $barang['id_brg'] ?>">
@@ -47,6 +47,10 @@
                         <div class="col-12">
                             <a class="float-right mb-3" href="<?= base_url('user/profil/edit_profil') ?>"><i>ubah data</i></a>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Upload Desain</label>
+                        <input type="file" name="desain_barang" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="">Alamat Pemasangan</label>

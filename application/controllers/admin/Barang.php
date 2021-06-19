@@ -58,7 +58,17 @@ class Barang extends CI_Controller
                 'keterangan'        => $this->input->post('keterangan'),
                 'foto_barang'       => $foto_barang
             ];
-            $this->db->insert('tb_barang', $data_barang);
+            $id = $this->db->insert('tb_barang', $data_barang);
+
+            $id_brg = $this->db->insert_id($id);
+
+            $data_barang2 = [
+                'id_brg'        => $id_brg,
+                'nama_variasi'     => $this->input->post('nama_barang'),
+                'harga_variasi'      => $this->input->post('harga_barang'),
+                'foto_variasi'       => $foto_barang
+            ];
+            $this->db->insert('tb_variasi', $data_barang2);
             redirect('admin/barang/index');
         }
     }
@@ -111,7 +121,8 @@ class Barang extends CI_Controller
             'judul'     => 'Detail Barang',
             'user'      => $this->db->get_where('tb_user', ['email' => $this->session->userdata('email')])->row_array(),
             'barang'    => $this->barang_model->getBarang($id_brg)->row_array(),
-            'variasi'   => $this->db->get_where('tb_variasi', ['id_brg' => $id_brg])
+            'variasi'   => $this->db->query("SELECT * FROM tb_variasi WHERE id_brg = $id_brg LIMIT 1, 200")
+            // 'variasi'   => $this->db->get_where('tb_variasi', ['id_brg' => $id_brg])
         ];
         $this->load->view('templates/admin_header', $data);
         $this->load->view('templates/admin_sidebar');
@@ -243,6 +254,15 @@ class Barang extends CI_Controller
         redirect('admin/barang/detail_barang/' . $id_brg);
     }
 
+    public function hapus_pemesanan($id_pemesanan)
+    {
+        $this->db->where('id_pemesanan', $id_pemesanan);
+        $this->db->delete('tb_pemesanan');
+
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Selamat! kamu berhasil menghapus data pemesanan</div>');
+        redirect('admin/barang/data_pemesanan/');
+    }
+
     public function proses($id_brg = null)
     {
         if (isset($_POST['tambah'])) {
@@ -316,6 +336,11 @@ class Barang extends CI_Controller
         $this->load->view('templates/admin_footer');
     }
 
+    public function download_desain($desain)
+    {
+        force_download('assets/user/img/desain/' . $desain, NULL);
+    }
+
     public function selesai($id_pemesanan)
     {
         $this->db->set('status_pemesanan', $this->input->post('status_pemesanan'));
@@ -331,7 +356,7 @@ class Barang extends CI_Controller
     //     $this->load->view('admin/barang/cetak_data', $data);
     // }
 
-        public function cetak_data()
+    public function cetak_data()
     {
         $this->load->library('dompdf_gen');
         $data['judul']      = "Cetak Data";

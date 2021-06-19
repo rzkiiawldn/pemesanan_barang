@@ -32,6 +32,7 @@
                             <td>Rp. <?= number_format($pesan['total_harga'], 0, ',', '.'); ?></td>
                             <td>
                                 <a href="<?= base_url('admin/barang/detail_pemesanan/' . $pesan['id_pemesanan']) ?>" class="badge badge-info">detail</a>
+                                <a href="<?= base_url('admin/barang/hapus_pemesanan/' . $pesan['id_pemesanan']) ?>" onclick="return confirm('Apakah anda yakin ingin menghapus pesanan ini ?')" class="badge badge-danger">hapus</a>
                             </td>
                         </tr>
                     <?php } ?>

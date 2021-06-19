@@ -22,11 +22,11 @@
             <div class="row">
 
                 <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col mb-2">
-                                <a href="<?= base_url('user/barang/invoice/'. $pemesanan['id_pemesanan']); ?>" target="_blank" class="btn btn-primary btn-sm float-right">Cetak invoice</a>
-                            </div>
+                    <div class="row">
+                        <div class="col mb-2">
+                            <a href="<?= base_url('user/barang/invoice/' . $pemesanan['id_pemesanan']); ?>" target="_blank" class="btn btn-primary btn-sm float-right">Cetak invoice</a>
                         </div>
+                    </div>
                     <div class="card">
                         <div class="card-header">
                             <?= $judul; ?>
@@ -56,6 +56,10 @@
                                 <tr>
                                     <th width="30%">Nama Barang</th>
                                     <td width="70%">: <?= $pemesanan['nama_barang']; ?></td>
+                                </tr>
+                                <tr>
+                                    <th width="30%">Desain</th>
+                                    <td width="70%">: <img src="<?= base_url('assets/user/img/desain/' . $pemesanan['desain_barang']) ?>" alt="" class="img" width="200px"></td>
                                 </tr>
                                 <tr>
                                     <th width="30%">Harga Barang /cm</th>

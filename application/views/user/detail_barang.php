@@ -58,7 +58,7 @@
                             <li><?= $data['nama_variasi'] . ' ( Rp. ' . $data['harga_variasi'] . ' )' ?></li>
                         <?php } ?>
                     </ul>
-                    <p style="font-size: 15px;"><?= nl2br($barang['keterangan']); ?></p>
+                    <p style="font-size: 15px;"><strong>Keterangan : </strong> <br><?= nl2br($barang['keterangan']); ?></p>
                     <a href="<?= base_url('user/barang/pesan/' . $barang['id_brg']) ?>" class="btn text-white mt-5 float-right" style="background-color: #2a2c39;">Pesan Sekarang</a>
                 </div>
             </div>

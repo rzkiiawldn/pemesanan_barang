@@ -33,6 +33,14 @@
                             <td width="70%">: <?= $pemesanan['nama_barang']; ?></td>
                         </tr>
                         <tr>
+                            <th width="30%">Desain</th>
+                            <td width="70%">: <img src="<?= base_url('assets/user/img/desain/' . $pemesanan['desain_barang']) ?>" alt="" class="img" width="200px">
+                                <?php if ($pemesanan['desain_barang'] != '') { ?>
+                                    <a href="<?= base_url("admin/barang/download_desain/" . $pemesanan['desain_barang']) ?>">download desain</a>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                        <tr>
                             <th width="30%">Harga Barang /cm</th>
                             <td width="70%">: Rp. <?= number_format($pemesanan['harga_barang'], 0, ',', '.') ?></td>
                         </tr>

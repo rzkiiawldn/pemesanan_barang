@@ -37,7 +37,7 @@ class Barang extends CI_Controller
                 'judul'     => 'Form Pemesanan',
                 'user'      => $this->db->get_where('tb_user', ['email' => $this->session->userdata('email')])->row_array(),
                 'barang'    => $this->barang_model->getBarang($id_brg)->row_array(),
-                'variasi'   => $this->barang_model->getVariasiBarang($id_brg)
+                'variasi'   => $this->db->get_where('tb_variasi', ['id_brg' => $id_brg])
             ];
 
             $this->load->view('templates/user_header', $data);

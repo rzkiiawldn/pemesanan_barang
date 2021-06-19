@@ -12,17 +12,23 @@ function belum_login()
         $id_role   = $ci->session->userdata('id_role');
         // kemudian cek, kita berada di menu apa dengan menggunakan uri->segment()
         $menu       = $ci->uri->segment(1);
+
+        if ($menu == 'admin') {
+            $id_menu = 1;
+        } else {
+            $id_menu = 2;
+        }
         // jika user di izinkan mengakses menu, maka tidak ada error
         // tetapi jika user tidak ada izin, maka tampilkan halaman error
 
         // lalu query tb_menu untuk mendapatkan id_menu
-        $queryMenu  = $ci->db->get_where('tb_user_menu', ['menu'  => $menu])->row_array();
-        $menuId     = $queryMenu['id_menu'];
+        // $queryMenu  = $ci->db->get_where('tb_user_menu', ['menu'  => $menu])->row_array();
+        // $menuId     = $queryMenu['id_menu'];
 
         // kemudian cek id menu dan cocokan dengan tb akses menu
         $queryAccessMenu    = $ci->db->get_where('tb_user_access_menu', [
             'id_role'  => $id_role,
-            'id_menu'   => $menuId
+            'id_menu'  => $id_menu
         ]);
 
         // lalu di cek kembali, jika user akses ada datanya maka jalankan
