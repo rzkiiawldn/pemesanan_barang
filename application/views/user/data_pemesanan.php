@@ -19,6 +19,9 @@
     <section class="inner-page">
         <div class="container">
             <?= $this->session->flashdata('pesan'); ?>
+            <?php if ($pemesanan->num_rows() > 0) { ?>
+                <div class="alert alert-danger" role="alert">Silahkan Transfer ke Rekening <b>BCA 8830525671 a/n EDI JUNAEDI</b></div>
+            <?php } ?>
             <div class="table-responsive">
                 <table class="table table-hover table-striped">
                     <thead class="thead-dark">
@@ -88,6 +91,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                <div class="alert alert-danger" role="alert">Silahkan Transfer ke- <br> Rekening <b>BCA 8830525671 a/n EDI JUNAEDI</b></div>
+
                 <form action="<?= base_url('user/barang/upload_bukti/' . $pesan['id_pemesanan']) ?>" method="post" enctype="multipart/form-data">
                     <div class=" modal-body">
                         <div class="form-group">
