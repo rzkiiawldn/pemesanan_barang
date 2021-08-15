@@ -137,6 +137,10 @@ class Barang extends CI_Controller
             'user'      => $this->db->get_where('tb_user', ['email' => $this->session->userdata('email')])->row_array(),
             'barang'    => $this->barang_model->getBarang($id_brg)->row_array()
         ];
+
+        $variasi = $this->db->get_where('tb_variasi', ['id_brg' => $id_brg])->row_array();
+        $id_variasi = $variasi['id_variasi'];
+
         $this->form_validation->set_rules('nama_barang', 'Nama Barang', 'required|trim');
         $this->form_validation->set_rules('harga_barang', 'Harga Barang', 'required|trim');
         $this->form_validation->set_rules('keterangan', 'Keterangan Barang', 'required|trim');
@@ -170,6 +174,12 @@ class Barang extends CI_Controller
                     $this->db->set('keterangan', $keterangan);
                     $this->db->where('id_brg', $id_brg);
                     $this->db->update('tb_barang');
+
+                    $this->db->set('harga_variasi', $harga_barang);
+                    $this->db->set('nama_variasi', $nama_barang);
+                    $this->db->where('id_variasi', $id_variasi);
+                    $this->db->update('tb_variasi');
+
                     $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Edit data barang berhasil</div>');
                     redirect('admin/barang/index');
                 }
@@ -179,6 +189,12 @@ class Barang extends CI_Controller
             $this->db->set('keterangan', $keterangan);
             $this->db->where('id_brg', $id_brg);
             $this->db->update('tb_barang');
+
+            $this->db->set('harga_variasi', $harga_barang);
+            $this->db->set('nama_variasi', $nama_barang);
+            $this->db->where('id_variasi', $id_variasi);
+            $this->db->update('tb_variasi');
+
             $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Edit data barang berhasil</div>');
             redirect('admin/barang/index');
         }
